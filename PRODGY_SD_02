@@ -1,0 +1,48 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGuessingGame {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random rand = new Random();
+
+        System.out.println("Hi! Welcome to the Number Guessing Game.");
+        System.out.println("You have 7 chances to guess the number. Let's start!");
+
+        System.out.print("Enter the Lower Bound: ");
+        int low = scanner.nextInt();
+
+        System.out.print("Enter the Upper Bound: ");
+        int high = scanner.nextInt();
+
+        if (low >= high) {
+            System.out.println("Invalid range. Lower bound must be less than upper bound.");
+            return;
+        }
+
+        System.out.printf("\nYou have 7 chances to guess the number between %d and %d.\n", low, high);
+
+        int num = rand.nextInt(high - low + 1) + low;
+        int ch = 7; // Total allowed chances
+        int gc = 0; // Guess counter
+
+        while (gc < ch) {
+            gc++;
+            System.out.print("Enter your guess: ");
+            int guess = scanner.nextInt();
+
+            if (guess == num) {
+                System.out.printf("🎉 Correct! The number is %d. You guessed it in %d attempt(s).\n", num, gc);
+                break;
+            } else if (gc == ch) {
+                System.out.printf("❌ Out of attempts! The number was %d. Better luck next time.\n", num);
+            } else if (guess > num) {
+                System.out.println("Too high! Try a lower number.");
+            } else {
+                System.out.println("Too low! Try a higher number.");
+            }
+        }
+
+        scanner.close();
+    }
+}
